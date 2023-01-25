@@ -10,13 +10,16 @@
   },
   "dependencies": {
     "@next/font": "13.1.5",
+    "@react-spring/three": "^9.6.1",
     "@react-three/drei": "^9.56.1",
     "@react-three/fiber": "^8.10.1",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.5",
+    "framer-motion-3d": "^8.5.2",
     "next": "13.1.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-use-animation": "^1.0.1",
     "three": "^0.148.0"
   },
   "devDependencies": {

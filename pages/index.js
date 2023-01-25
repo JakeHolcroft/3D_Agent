@@ -3,8 +3,7 @@ import { Inter } from '@next/font/google'
 import { Canvas, useFrame} from '@react-three/fiber'
 import { useGLTF, OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import { useRef, useEffect, useState} from 'react'
-
-
+import Link from 'next/link'
 
 
 
@@ -40,12 +39,7 @@ export default function Home() {
 
       
           </mesh>
-          {/* <PerspectiveCamera
-    makeDefault
-    position={[0, 0, 250]}
-    fov={100}
-    zoom={0.9}
-  /> */}
+
         </Canvas>
 
 
@@ -77,6 +71,9 @@ export default function Home() {
              setCamera4Enable(true)
           }}  className='bg-white p-3 rounded-lg mx-3 mt-3'>Camera 4.</button>
 
+
+        <button className='bg-yellow-200 float-right p-3 rounded-lg mx-3 mt-3'><Link href="/demo">Animated</Link></button>
+        <button className='bg-yellow-200 float-right p-3 rounded-lg mx-3 mt-3 font-bold'><Link href="/">Unanimated</Link></button>
           </div>
       </div>
     </>
