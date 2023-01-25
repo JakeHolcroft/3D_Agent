@@ -57,25 +57,25 @@ export default function Home() {
              setCamera3Enable(false)
              setCamera4Enable(false)
           }} 
-          className='bg-white p-3 rounded-lg mx-3 mt-3'>Camera 1</button>
+          className='bg-white p-3 rounded-lg mx-3 mt-3'>Camera 1.</button>
           <button onClick={() => {
              setCamera1Enable(false)
              setCamera2Enable(true)
              setCamera3Enable(false)
              setCamera4Enable(false)
-          }}  className='bg-white p-3 rounded-lg mx-3 mt-3'>Camera 2</button>
+          }}  className='bg-white p-3 rounded-lg mx-3 mt-3'>Camera 2.</button>
           <button onClick={() => {
              setCamera1Enable(false)
              setCamera2Enable(false)
              setCamera3Enable(true)
              setCamera4Enable(false)
-          }}  className='bg-white p-3 rounded-lg mx-3 mt-3'>Camera 3</button>
+          }}  className='bg-white p-3 rounded-lg mx-3 mt-3'>Camera 3.</button>
           <button onClick={() => {
              setCamera1Enable(false)
              setCamera2Enable(false)
              setCamera3Enable(false)
              setCamera4Enable(true)
-          }}  className='bg-white p-3 rounded-lg mx-3 mt-3'>Camera 4</button>
+          }}  className='bg-white p-3 rounded-lg mx-3 mt-3'>Camera 4.</button>
 
           </div>
       </div>
