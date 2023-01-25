@@ -1,11 +1,21 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import { Canvas, useFrame} from '@react-three/fiber'
+import { useGLTF, OrbitControls, PerspectiveCamera } from '@react-three/drei'
+import { useRef, useEffect, useState} from 'react'
 
-const inter = Inter({ subsets: ['latin'] })
+
+
+
 
 export default function Home() {
+
+  const [camera1Enable, setCamera1Enable] = useState(false);
+  const [camera2Enable, setCamera2Enable] = useState(false);
+  const [camera3Enable, setCamera3Enable] = useState(false);
+  const [camera4Enable, setCamera4Enable] = useState(false);
+
+
   return (
     <>
       <Head>
@@ -14,110 +24,153 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>pages/index.js</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
+
+      <div className='relative' id="canvas-container">
+        <Canvas>
+
+
+          
+          <ambientLight intensity={0.2} />
+          <directionalLight color="red" position={[0, 0, 5]} />
+
+
+          <mesh>
+
+            <AgentModel camera1={camera1Enable} camera2={camera2Enable} camera3={camera3Enable} camera4={camera4Enable}/>
+
+      
+          </mesh>
+          {/* <PerspectiveCamera
+    makeDefault
+    position={[0, 0, 250]}
+    fov={100}
+    zoom={0.9}
+  /> */}
+        </Canvas>
+
+
+        <div className='z-[999] absolute bottom-[0px] w-[100vw] bg-red-500/50 h-[70px]'>
+          
+          <button onClick={() => {
+             setCamera1Enable(true)
+             setCamera2Enable(false)
+             setCamera3Enable(false)
+             setCamera4Enable(false)
+          }} 
+          className='bg-white p-3 rounded-lg mx-3 mt-3'>camera 1</button>
+          <button onClick={() => {
+             setCamera1Enable(false)
+             setCamera2Enable(true)
+             setCamera3Enable(false)
+             setCamera4Enable(false)
+          }}  className='bg-white p-3 rounded-lg mx-3 mt-3'>camera 2</button>
+          <button onClick={() => {
+             setCamera1Enable(false)
+             setCamera2Enable(false)
+             setCamera3Enable(true)
+             setCamera4Enable(false)
+          }}  className='bg-white p-3 rounded-lg mx-3 mt-3'>camera 3</button>
+          <button onClick={() => {
+             setCamera1Enable(false)
+             setCamera2Enable(false)
+             setCamera3Enable(false)
+             setCamera4Enable(true)
+          }}  className='bg-white p-3 rounded-lg mx-3 mt-3'>camera 4</button>
+
           </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
+      </div>
     </>
   )
 }
+
+
+export function AgentModel(props) {
+  const ref = useRef();
+
+
+  console.log(props.camera1 ? props.camera1 : "undefined")
+const { nodes, materials } = useGLTF("/Agent (1).gltf");
+
+
+return (
+  <group {...props} dispose={null}>
+    
+
+
+    {/* default camera */}
+    <PerspectiveCamera
+      makeDefault={true}
+      far={10000000000}
+      near={0.01}
+      fov={50}
+      position={[0, -80, 522.72]}
+      rotation={[0.25, 0, 0]}
+    />
+
+
+    {/* camera 1 / default camera */}
+
+    {props.camera1 ? (
+    <PerspectiveCamera
+      makeDefault={true}
+      far={10000000000}
+      near={0.01}
+      fov={50}
+      position={[0, -80, 522.72]}
+      rotation={[0.25, 0, 0]}
+    /> ) : ( null)
+  }
+
+    {/* camera 2 */}
+
+{props.camera2 ? (
+
+    <PerspectiveCamera
+      makeDefault={true}
+      far={10000000000}
+      near={0.01}
+      fov={50}
+      position={[333.49, 48.14, 130.03]}
+      rotation={[0.05, 1.27, -0.04]}
+    /> ) : ( null)
+
+  }
+
+    {/* camera 3 */}
+    {props.camera3 ? (
+    <PerspectiveCamera
+      makeDefault={true}
+      far={10000000000}
+      near={0.01}
+      fov={50}
+      position={[-299.52, 33.32, 282.3]}
+      rotation={[0.09, -0.7, 0.06]}
+      /> ) : ( null)
+
+    }
+        {/* camera 4 */}
+        {props.camera4 ? (
+
+    <PerspectiveCamera
+      makeDefault={true}
+      far={10000000000}
+      near={0.01}
+      fov={50}
+      position={[0, 51, 733]}
+    /> ) : ( null)
+
+  }
+    <mesh
+      castShadow
+      receiveShadow
+      geometry={nodes.SuperText_Plus.geometry}
+      material={materials.Mat}
+      position={[0, 55, 0]}
+    />
+  </group>
+);
+}
+
+useGLTF.preload("/Agent (1).gltf");
+
+
