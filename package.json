@@ -19,7 +19,6 @@
     "next": "13.1.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-use-animation": "^1.0.1",
     "three": "^0.148.0"
   },
   "devDependencies": {
